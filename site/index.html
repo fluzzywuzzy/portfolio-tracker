@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portfolio Tracker</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Public Portfolio Snapshot</p>
+        <h1 id="page-title">Portfolio Tracker</h1>
+        <p class="lede" id="page-note">
+          Percentages only. No monetary values are published.
+        </p>
+        <div class="meta">
+          <span id="page-owner"></span>
+          <span id="page-updated">Loading latest snapshot...</span>
+        </div>
+      </section>
+
+      <section class="summary" id="summary-cards"></section>
+
+      <section class="dashboard">
+        <div class="panel-column">
+          <div class="section-heading">
+            <h2>Portfolio Breakdown</h2>
+            <p>Allocation across accounts and holdings.</p>
+          </div>
+          <div id="accounts-root" class="accounts-grid"></div>
+        </div>
+
+        <aside class="panel-column purchase-column">
+          <div class="section-heading">
+            <h2>Recent Purchases</h2>
+            <p>Ten latest buys for the published account set.</p>
+          </div>
+          <div class="purchase-panel">
+            <div id="purchases-root" class="purchase-list"></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <template id="account-template">
+      <article class="account-card">
+        <div class="account-header">
+          <div>
+            <p class="account-label">Account</p>
+            <h3 class="account-name"></h3>
+          </div>
+          <div class="account-allocation"></div>
+        </div>
+        <div class="holdings"></div>
+      </article>
+    </template>
+
+    <template id="holding-template">
+      <div class="holding-row">
+        <div class="holding-main">
+          <div class="holding-title-row">
+            <span class="holding-name"></span>
+            <span class="holding-ticker"></span>
+          </div>
+          <div class="holding-type"></div>
+        </div>
+        <div class="holding-stats">
+          <div class="holding-allocation"></div>
+          <div class="holding-performance"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="purchase-template">
+      <div class="purchase-row">
+        <div class="purchase-main">
+          <div class="purchase-name"></div>
+          <div class="purchase-time"></div>
+        </div>
+        <div class="purchase-impact"></div>
+      </div>
+    </template>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
