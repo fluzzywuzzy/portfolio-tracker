@@ -88,6 +88,24 @@ Publish the contents of `site/` to any static host:
 
 Only the generated JSON and static assets need to be public.
 
+## GitHub Pages
+
+This repo includes a GitHub Pages workflow at `.github/workflows/deploy-pages.yml` that publishes the `site/` directory.
+
+To enable it:
+
+1. Push the repository to GitHub.
+2. In GitHub, open `Settings` -> `Pages`.
+3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+4. Push to the `master` branch to deploy.
+
+The static site includes two anti-indexing measures:
+
+- `site/robots.txt` disallows all crawlers
+- `site/index.html` includes `noindex, nofollow` meta tags
+
+This reduces search indexing, but does not make the site private. Anyone with the URL can still access it.
+
 ## Notes On Data
 
 The exporter intentionally strips monetary values before writing the public JSON. It keeps:
