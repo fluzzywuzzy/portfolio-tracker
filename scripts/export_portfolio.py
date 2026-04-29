@@ -247,6 +247,13 @@ def extract_accounts(payload: dict[str, Any]) -> list[dict[str, Any]]:
     return []
 
 
+def extract_overview_accounts(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    accounts = payload.get("accounts")
+    if isinstance(accounts, list):
+        return [item for item in accounts if isinstance(item, dict)]
+    return []
+
+
 def build_accounts_from_positions(payload: dict[str, Any]) -> list[dict[str, Any]]:
     grouped: dict[str, dict[str, Any]] = {}
 
@@ -364,6 +371,53 @@ def extract_recent_purchases(
     return purchases[:10]
 
 
+def extract_balance_value(value: Any) -> float | None:
+    if isinstance(value, dict):
+        number = as_float(value.get("value"))
+        if number is not None:
+            return number
+    return as_float(value)
+
+
+def extract_ytd_performance_percent(
+    overview_payload: dict[str, Any], included_account_ids: set[str]
+) -> float | None:
+    total_current_value = 0.0
+    total_ytd_absolute = 0.0
+    matched_accounts = 0
+
+    for account in extract_overview_accounts(overview_payload):
+        account_id = as_text(account.get("id"))
+        if not account_id or (included_account_ids and account_id not in included_account_ids):
+            continue
+
+        performance = account.get("performance", {})
+        if not isinstance(performance, dict):
+            continue
+
+        this_year = performance.get("THIS_YEAR")
+        if not isinstance(this_year, dict):
+            continue
+
+        absolute_value = extract_balance_value(dig(this_year, "absolute"))
+        current_value = extract_balance_value(account.get("totalValue"))
+        if absolute_value is None or current_value is None:
+            continue
+
+        total_current_value += current_value
+        total_ytd_absolute += absolute_value
+        matched_accounts += 1
+
+    if matched_accounts == 0:
+        return None
+
+    start_of_year_value = total_current_value - total_ytd_absolute
+    if start_of_year_value <= 0:
+        return None
+
+    return round((total_ytd_absolute / start_of_year_value) * 100, 2)
+
+
 def sanitize_payload(payload: dict[str, Any]) -> dict[str, Any]:
     account_filter = parse_account_filter()
     raw_accounts = extract_accounts(payload)
@@ -464,6 +518,12 @@ def main() -> None:
         account["accountId"] for account in sanitized["accounts"] if account.get("accountId")
     }
     portfolio_total = float(sanitized.pop("_privatePortfolioValue", 0.0))
+
+    overview_payload = to_dict(client.get_overview())
+    sanitized["summary"]["ytdPerformancePercent"] = extract_ytd_performance_percent(
+        overview_payload,
+        included_account_ids,
+    )
 
     transactions_payload = to_dict(
         client.get_transactions_details(

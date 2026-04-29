@@ -1,1 +1,3 @@
 avanza-api
+pywebpush
+requests

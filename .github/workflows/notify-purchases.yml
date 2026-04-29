@@ -1,0 +1,39 @@
+name: Notify New Purchases
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "site/portfolio.json"
+      - "scripts/notify_new_purchase.py"
+      - "requirements.txt"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send push notifications for new purchases
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          WEB_PUSH_VAPID_PRIVATE_KEY: ${{ secrets.WEB_PUSH_VAPID_PRIVATE_KEY }}
+          WEB_PUSH_SUBJECT: ${{ secrets.WEB_PUSH_SUBJECT }}
+          PUBLIC_SITE_URL: ${{ secrets.PUBLIC_SITE_URL }}
+          SUPABASE_SUBSCRIPTIONS_TABLE: push_subscriptions
+          SUPABASE_STATE_TABLE: notification_state
+          NOTIFICATION_STATE_KEY: latest_purchase
+          NOTIFY_ON_FIRST_RUN: "false"
+        run: python3 scripts/notify_new_purchase.py

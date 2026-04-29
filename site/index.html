@@ -7,6 +7,7 @@
     <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
     <title>Portfolio Tracker</title>
     <link rel="stylesheet" href="./styles.css">
+    <script src="./config.js"></script>
   </head>
   <body>
     <main class="page">
@@ -14,11 +15,27 @@
         <p class="eyebrow">Public Portfolio Snapshot</p>
         <h1 id="page-title">Portfolio Tracker</h1>
         <p class="lede" id="page-note">
-          Percentages only. No monetary values are published.
+          Anonymized stock trading data.
         </p>
         <div class="meta">
           <span id="page-owner"></span>
           <span id="page-updated">Loading latest snapshot...</span>
+        </div>
+        <div class="notification-cta">
+          <div>
+            <p class="notification-title">Purchase Alerts</p>
+            <p class="notification-copy">
+              Subscribe to browser push notifications when a new purchase appears.
+            </p>
+          </div>
+          <div class="notification-actions">
+            <button id="subscribe-button" class="subscribe-button" type="button">
+              Enable alerts
+            </button>
+            <p id="subscription-status" class="subscription-status">
+              Notifications are loading.
+            </p>
+          </div>
         </div>
       </section>
 

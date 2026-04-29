@@ -14,10 +14,13 @@ Because Avanza credentials are inherently trading-capable, this is the safest pr
 ## Structure
 
 - `scripts/export_portfolio.py`: logs in to Avanza and exports a sanitized JSON snapshot.
+- `scripts/notify_new_purchase.py`: sends web push notifications when the latest purchase changes.
+- `scripts/generate_vapid_keys.py`: generates VAPID keys for browser push.
 - `site/index.html`: static public page.
 - `site/app.js`: renders the snapshot.
 - `site/styles.css`: page styling.
 - `site/portfolio.json`: generated data file that the page reads.
+- `supabase/schema.sql`: storage schema for push subscriptions and notification state.
 
 ## Install
 
@@ -67,6 +70,83 @@ This updates `site/portfolio.json` with:
 - holding-level percentage performance when available
 - the 10 latest buy transactions for the included accounts
 
+## Push Notifications
+
+The static site can offer browser push subscriptions, but sending notifications still requires a trusted server-side secret. This repo uses:
+
+- GitHub Pages for the public static site
+- Supabase to store push subscriptions
+- a GitHub Actions workflow plus `scripts/notify_new_purchase.py` to send alerts
+
+### 1. Generate VAPID keys
+
+Run:
+
+```bash
+python3 scripts/generate_vapid_keys.py
+```
+
+Put the generated values into `.env`:
+
+- `WEB_PUSH_VAPID_PUBLIC_KEY`
+- `WEB_PUSH_VAPID_PRIVATE_KEY`
+- `WEB_PUSH_SUBJECT`
+
+### 2. Create the Supabase tables
+
+Create a Supabase project, then run the SQL in:
+
+`supabase/schema.sql`
+
+This creates:
+
+- `push_subscriptions`
+- `notification_state`
+
+### 3. Configure the public site
+
+Edit `site/config.js` and fill in:
+
+- `supabaseUrl`
+- `supabaseAnonKey`
+- `webPushPublicKey`
+- `publicSiteUrl`
+
+These are public values and are safe to ship in the static site.
+
+### 4. Configure local/GitHub secrets
+
+Add these to `.env` for local testing:
+
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `WEB_PUSH_VAPID_PRIVATE_KEY`
+- `WEB_PUSH_SUBJECT`
+- `PUBLIC_SITE_URL`
+
+Add the same private values as GitHub repository secrets for the notification workflow:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `WEB_PUSH_VAPID_PRIVATE_KEY`
+- `WEB_PUSH_SUBJECT`
+- `PUBLIC_SITE_URL`
+
+### 5. Test locally
+
+After exporting the portfolio, run:
+
+```bash
+python3 scripts/notify_new_purchase.py
+```
+
+Behavior:
+
+- first run initializes state and sends nothing
+- later runs send notifications only when the top `recentPurchases[0]` entry changes
+- expired subscriptions are removed automatically when the push service returns `404` or `410`
+
 ## Preview
 
 ```bash
@@ -91,13 +171,14 @@ Only the generated JSON and static assets need to be public.
 ## GitHub Pages
 
 This repo includes a GitHub Pages workflow at `.github/workflows/deploy-pages.yml` that publishes the `site/` directory.
+It also includes `.github/workflows/notify-purchases.yml` to send push alerts when `site/portfolio.json` changes on `main`.
 
 To enable it:
 
 1. Push the repository to GitHub.
 2. In GitHub, open `Settings` -> `Pages`.
 3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
-4. Push to the `master` branch to deploy.
+4. Push to the `main` branch to deploy.
 
 The static site includes two anti-indexing measures:
 
