@@ -1,0 +1,19 @@
+[Unit]
+Description=Update and publish Avanza portfolio snapshot
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/avanza_tracker
+ExecStart=%h/avanza_tracker/scripts/update_and_publish.sh
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/avanza_tracker
+
+[Install]
+WantedBy=multi-user.target

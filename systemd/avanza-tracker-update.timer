@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Avanza portfolio update on weekdays
+
+[Timer]
+OnCalendar=Mon..Fri 11:00
+OnCalendar=Mon..Fri 13:00
+OnCalendar=Mon..Fri 16:00
+OnCalendar=Mon..Fri 19:00
+Persistent=true
+Unit=avanza-tracker-update.service
+
+[Install]
+WantedBy=timers.target

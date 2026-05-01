@@ -204,6 +204,86 @@ The Avanza package used here exposes both read and write operations in its API d
 
 This project only uses the read path in the local exporter and never exposes the client itself publicly.
 
+## Raspberry Pi Automation
+
+For a safer automated setup, keep Avanza credentials on a Raspberry Pi you control and let the Pi publish only the generated `site/portfolio.json`.
+
+This repo includes:
+
+- `scripts/update_and_publish.sh`: exports the snapshot, commits `site/portfolio.json` if it changed, and pushes it
+- `systemd/avanza-tracker-update.service`: oneshot service for the update job
+- `systemd/avanza-tracker-update.timer`: weekday schedule at 11:00, 13:00, 16:00, 19:00
+
+### 1. Prepare the Pi
+
+Clone the repo into your home directory so the default systemd unit paths work:
+
+```bash
+cd ~
+git clone git@github.com:fluzzywuzzy/portfolio-tracker.git avanza_tracker
+cd avanza_tracker
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+Fill in `.env` with your Avanza credentials and any optional settings.
+
+The Pi also needs Git push access to the repository, typically via an SSH key that is added to GitHub.
+
+### 2. Test the updater manually
+
+Run:
+
+```bash
+./scripts/update_and_publish.sh
+```
+
+Behavior:
+
+- exits safely if another run is already active
+- refuses to overwrite `site/portfolio.json` if that file has local uncommitted edits
+- pushes only when the generated snapshot actually changed
+
+### 3. Install the systemd timer
+
+Copy the units into your user systemd directory:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp systemd/avanza-tracker-update.service ~/.config/systemd/user/
+cp systemd/avanza-tracker-update.timer ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now avanza-tracker-update.timer
+```
+
+Check the schedule:
+
+```bash
+systemctl --user list-timers avanza-tracker-update.timer
+```
+
+Check logs after a run:
+
+```bash
+journalctl --user -u avanza-tracker-update.service -n 100 --no-pager
+```
+
+### 4. Keep the timer running without login
+
+If this should keep running after reboots even when you are not logged in:
+
+```bash
+sudo loginctl enable-linger "$USER"
+```
+
+### Notes
+
+- `systemd` uses the Pi's local timezone. Set the Pi timezone correctly to `Europe/Stockholm` if you want those wall-clock times.
+- A successful push to `main` will trigger the existing GitHub Pages deployment and purchase notification workflow.
+- If you later move the repo to a different path, update `WorkingDirectory` and `ExecStart` in `systemd/avanza-tracker-update.service`.
+
 Sources:
 
 - Avanza package docs: https://qluxzz.github.io/avanza/avanza.html
