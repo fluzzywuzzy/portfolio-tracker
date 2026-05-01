@@ -1,13 +1,13 @@
 {
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
-  "publicNote": "Percentages only. No live account value is published.",
-  "generatedAt": "2026-04-29T05:09:40.682754+00:00",
+  "publicNote": "Anonymized stock trading data",
+  "generatedAt": "2026-05-01T12:19:46.274432+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 15,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 5.11
+    "ytdPerformancePercent": 4.37
   },
   "accounts": [
     {
@@ -15,108 +15,108 @@
       "accountName": "Aktiekonto (ISK)",
       "holdings": [
         {
-          "name": "Microsoft",
-          "ticker": null,
-          "type": "STOCK",
-          "performancePercent": 82.1,
-          "allocationPercent": 20.61
-        },
-        {
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 116.99,
-          "allocationPercent": 20.28
+          "performancePercent": 116.3,
+          "allocationPercent": 20.34
+        },
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "type": "STOCK",
+          "performancePercent": 71.87,
+          "allocationPercent": 19.57
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 10.06,
-          "allocationPercent": 16.16
+          "performancePercent": 13.26,
+          "allocationPercent": 16.74
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 57.37,
-          "allocationPercent": 9.42
+          "performancePercent": 57.83,
+          "allocationPercent": 9.5
         },
         {
           "name": "AstraZeneca ADR",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 16.85,
-          "allocationPercent": 9.0
+          "performancePercent": 16.44,
+          "allocationPercent": 9.03
         },
         {
           "name": "SEB A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -0.88,
-          "allocationPercent": 3.72
-        },
-        {
-          "name": "Evolution",
-          "ticker": null,
-          "type": "STOCK",
-          "performancePercent": -59.58,
-          "allocationPercent": 3.32
-        },
-        {
-          "name": "Gevo",
-          "ticker": null,
-          "type": "STOCK",
-          "performancePercent": -54.25,
-          "allocationPercent": 3.23
+          "performancePercent": -0.06,
+          "allocationPercent": 3.77
         },
         {
           "name": "Forum Markets",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -0.36,
-          "allocationPercent": 3.21
+          "performancePercent": 5.35,
+          "allocationPercent": 3.41
+        },
+        {
+          "name": "Gevo",
+          "ticker": null,
+          "type": "STOCK",
+          "performancePercent": -52.56,
+          "allocationPercent": 3.37
+        },
+        {
+          "name": "Evolution",
+          "ticker": null,
+          "type": "STOCK",
+          "performancePercent": -59.52,
+          "allocationPercent": 3.35
         },
         {
           "name": "NanoViricides",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 5.77,
-          "allocationPercent": 2.9
+          "performancePercent": 7.69,
+          "allocationPercent": 2.98
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -13.88,
-          "allocationPercent": 2.5
+          "performancePercent": -13.98,
+          "allocationPercent": 2.51
         },
         {
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -22.77,
-          "allocationPercent": 2.47
+          "performancePercent": -24.15,
+          "allocationPercent": 2.44
         },
         {
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -63.19,
-          "allocationPercent": 1.54
+          "performancePercent": -62.91,
+          "allocationPercent": 1.56
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -94.2,
-          "allocationPercent": 1.41
+          "performancePercent": -95.08,
+          "allocationPercent": 1.21
         },
         {
           "name": "Polestar ADR",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -92.63,
+          "performancePercent": -92.5,
           "allocationPercent": 0.22
         }
       ],
@@ -134,49 +134,49 @@
       "name": "NanoViricides Inc",
       "accountId": "1872173",
       "tradeDate": "2025-12-26",
-      "portfolioImpactPercent": 2.75
+      "portfolioImpactPercent": 2.76
     },
     {
       "name": "Solid Power Inc.",
       "accountId": "1872173",
       "tradeDate": "2025-12-26",
-      "portfolioImpactPercent": 3.2
+      "portfolioImpactPercent": 3.22
     },
     {
       "name": "ETHZilla Corp",
       "accountId": "1872173",
       "tradeDate": "2025-12-26",
-      "portfolioImpactPercent": 3.22
+      "portfolioImpactPercent": 3.24
     },
     {
       "name": "MPC Container Ships AS",
       "accountId": "1872173",
       "tradeDate": "2025-09-24",
-      "portfolioImpactPercent": 5.59
+      "portfolioImpactPercent": 5.63
     },
     {
       "name": "SEB A",
       "accountId": "1872173",
       "tradeDate": "2025-08-15",
-      "portfolioImpactPercent": 3.75
+      "portfolioImpactPercent": 3.78
     },
     {
       "name": "TAIWAN SEMICONDUCTERS ADR",
       "accountId": "1872173",
       "tradeDate": "2025-08-14",
-      "portfolioImpactPercent": 5.99
+      "portfolioImpactPercent": 6.02
     },
     {
       "name": "ASTRAZENECA",
       "accountId": "1872173",
       "tradeDate": "2025-08-14",
-      "portfolioImpactPercent": 7.7
+      "portfolioImpactPercent": 7.75
     },
     {
       "name": "CRISPR Therapeutics AG",
       "accountId": "1872173",
       "tradeDate": "2025-08-13",
-      "portfolioImpactPercent": 2.9
+      "portfolioImpactPercent": 2.92
     },
     {
       "name": "BULL GULD X10 N",
