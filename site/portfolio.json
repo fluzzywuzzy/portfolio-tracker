@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-05-05T20:37:48.885420+00:00",
+  "generatedAt": "2026-05-05T20:42:48.597017+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 15,
@@ -25,21 +25,21 @@
           "name": "Microsoft",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 74.41,
+          "performancePercent": 74.43,
           "allocationPercent": 19.59
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 19.64,
+          "performancePercent": 19.65,
           "allocationPercent": 17.44
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 58.1,
+          "performancePercent": 58.12,
           "allocationPercent": 9.39
         },
         {
@@ -60,14 +60,14 @@
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -47.78,
+          "performancePercent": -47.77,
           "allocationPercent": 3.66
         },
         {
           "name": "NanoViricides",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 27.54,
+          "performancePercent": 27.56,
           "allocationPercent": 3.48
         },
         {
@@ -81,21 +81,21 @@
           "name": "Forum Markets",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -4.88,
+          "performancePercent": -4.86,
           "allocationPercent": 3.04
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -13.41,
+          "performancePercent": -13.39,
           "allocationPercent": 2.49
         },
         {
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -22.37,
+          "performancePercent": -22.36,
           "allocationPercent": 2.47
         },
         {
