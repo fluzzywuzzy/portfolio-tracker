@@ -103,6 +103,9 @@ This creates:
 - `push_subscriptions`
 - `notification_state`
 
+The schema also grants the browser `anon` role permission to insert and update `push_subscriptions`.
+If you created the tables before this change, re-run `supabase/schema.sql` so those grants are applied.
+
 ### 3. Configure the public site
 
 Edit `site/config.js` and fill in:
@@ -113,6 +116,7 @@ Edit `site/config.js` and fill in:
 - `publicSiteUrl`
 
 These are public values and are safe to ship in the static site.
+Use the project base URL for `supabaseUrl`, for example `https://your-project.supabase.co`, not the `/rest/v1` endpoint.
 
 ### 4. Configure local/GitHub secrets
 

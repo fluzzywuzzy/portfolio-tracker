@@ -180,6 +180,22 @@ function setSubscriptionStatus(message) {
   subscriptionStatus.textContent = message;
 }
 
+async function parseErrorMessage(response, fallbackMessage) {
+  let details = "";
+
+  try {
+    const payload = await response.json();
+    if (payload && typeof payload === "object") {
+      details =
+        payload.message || payload.msg || payload.error_description || payload.error || "";
+    }
+  } catch (_error) {
+    // Ignore JSON parsing errors and fall back to the generic message.
+  }
+
+  return details ? `${fallbackMessage}: ${details}` : fallbackMessage;
+}
+
 function notificationsConfigured() {
   return Boolean(
     normalizeSupabaseUrl(APP_CONFIG.supabaseUrl) &&
@@ -224,22 +240,42 @@ async function saveSubscription(subscription) {
   );
 
   if (!response.ok) {
-    throw new Error(`Subscription save failed: ${response.status}`);
+    throw new Error(
+      await parseErrorMessage(response, `Subscription save failed (${response.status})`)
+    );
+  }
+}
+
+async function clearPushSubscription(subscription) {
+  try {
+    await subscription.unsubscribe();
+  } catch (_error) {
+    // Ignore unsubscribe failures; the browser subscription may already be gone.
   }
 }
 
 async function ensurePushSubscription() {
   const registration = await navigator.serviceWorker.register("./sw.js");
   let subscription = await registration.pushManager.getSubscription();
+  let createdNewSubscription = false;
 
   if (!subscription) {
     subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(APP_CONFIG.webPushPublicKey),
     });
+    createdNewSubscription = true;
   }
 
-  await saveSubscription(subscription.toJSON());
+  try {
+    await saveSubscription(subscription.toJSON());
+  } catch (error) {
+    if (subscription && createdNewSubscription) {
+      await clearPushSubscription(subscription);
+    }
+    throw error;
+  }
+
   return subscription;
 }
 
@@ -266,6 +302,18 @@ async function refreshSubscriptionUi() {
   const subscription = await registration.pushManager.getSubscription();
 
   if (subscription) {
+    try {
+      await saveSubscription(subscription.toJSON());
+    } catch (error) {
+      await clearPushSubscription(subscription);
+      subscribeButton.textContent = "Enable alerts";
+      subscribeButton.disabled = false;
+      setSubscriptionStatus(
+        error instanceof Error ? error.message : "Could not verify the notification subscription."
+      );
+      return;
+    }
+
     subscribeButton.textContent = "Alerts enabled";
     subscribeButton.disabled = true;
     setSubscriptionStatus("This browser is subscribed to new purchase alerts.");
