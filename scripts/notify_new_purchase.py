@@ -52,15 +52,23 @@ def load_portfolio() -> dict[str, Any]:
     return json.loads(PORTFOLIO_PATH.read_text(encoding="utf-8"))
 
 
-def latest_purchase_key(purchase: dict[str, Any]) -> str:
+def latest_order_key(order: dict[str, Any]) -> str:
     return "|".join(
         [
-            str(purchase.get("tradeDate", "")),
-            str(purchase.get("name", "")),
-            str(purchase.get("accountId", "")),
-            str(purchase.get("portfolioImpactPercent", "")),
+            str(order.get("tradeDate", "")),
+            str(order.get("name", "")),
+            str(order.get("orderType", "")),
+            str(order.get("accountId", "")),
+            str(order.get("portfolioImpactPercent", "")),
         ]
     )
+
+
+def order_action_label(order: dict[str, Any]) -> str:
+    order_type = str(order.get("orderType", "")).upper()
+    if order_type == "SELL":
+        return "sold"
+    return "bought"
 
 
 def get_state(
@@ -121,28 +129,29 @@ def delete_subscription(
 
 
 def build_notification_payload(
-    portfolio: dict[str, Any], purchase: dict[str, Any]
+    portfolio: dict[str, Any], order: dict[str, Any]
 ) -> dict[str, str]:
     title = portfolio.get("title") or "Portfolio Tracker"
     public_site_url = os.getenv("PUBLIC_SITE_URL", "").strip() or "/"
     owner = portfolio.get("owner", "").strip()
     actor = owner or title
+    action = order_action_label(order)
 
     return {
-        "title": f"{title}: new purchase",
+        "title": f"{title}: new order",
         "body": (
-            f"{actor} added {purchase.get('name', 'a holding')} "
-            f"({purchase.get('portfolioImpactPercent', 0)}% of portfolio)."
+            f"{actor} {action} {order.get('name', 'a holding')} "
+            f"({order.get('portfolioImpactPercent', 0)}% of portfolio)."
         ),
-        "tag": "portfolio-purchase-alert",
+        "tag": "portfolio-order-alert",
         "url": public_site_url,
     }
 
 
 def send_notifications(
-    portfolio: dict[str, Any], purchase: dict[str, Any], subscriptions: list[dict[str, Any]]
+    portfolio: dict[str, Any], order: dict[str, Any], subscriptions: list[dict[str, Any]]
 ) -> tuple[int, int]:
-    payload = json.dumps(build_notification_payload(portfolio, purchase))
+    payload = json.dumps(build_notification_payload(portfolio, order))
     vapid_private_key = require_env("WEB_PUSH_VAPID_PRIVATE_KEY")
     vapid_subject = require_env("WEB_PUSH_SUBJECT")
 
@@ -181,39 +190,41 @@ def main() -> None:
     load_dotenv(ENV_PATH)
 
     portfolio = load_portfolio()
-    purchases = portfolio.get("recentPurchases") or []
-    if not purchases:
-        print("No purchases in portfolio snapshot. Nothing to notify.")
+    orders = portfolio.get("recentOrders") or portfolio.get("recentPurchases") or []
+    if not orders:
+        print("No orders in portfolio snapshot. Nothing to notify.")
         return
 
-    purchase = purchases[0]
-    purchase_key = latest_purchase_key(purchase)
+    order = orders[0]
+    order_key = latest_order_key(order)
 
     supabase_url = normalize_supabase_url(require_env("SUPABASE_URL"))
     service_key = require_env("SUPABASE_SERVICE_ROLE_KEY")
     state_table = os.getenv("SUPABASE_STATE_TABLE", "notification_state")
     subscriptions_table = os.getenv("SUPABASE_SUBSCRIPTIONS_TABLE", "push_subscriptions")
-    state_key = os.getenv("NOTIFICATION_STATE_KEY", "latest_purchase")
+    state_key = os.getenv("NOTIFICATION_STATE_KEY", "latest_order")
     notify_on_first_run = os.getenv("NOTIFY_ON_FIRST_RUN", "").strip().lower() == "true"
 
     previous_key = get_state(supabase_url, service_key, state_table, state_key)
-    if previous_key == purchase_key:
-        print("Latest purchase unchanged. No notifications sent.")
+    if previous_key is None and state_key == "latest_order":
+        previous_key = get_state(supabase_url, service_key, state_table, "latest_purchase")
+    if previous_key == order_key:
+        print("Latest order unchanged. No notifications sent.")
         return
 
     if previous_key is None and not notify_on_first_run:
-        set_state(supabase_url, service_key, state_table, state_key, purchase_key)
+        set_state(supabase_url, service_key, state_table, state_key, order_key)
         print("Initialized notification state without sending alerts.")
         return
 
     subscriptions = get_subscriptions(supabase_url, service_key, subscriptions_table)
     if not subscriptions:
-        set_state(supabase_url, service_key, state_table, state_key, purchase_key)
+        set_state(supabase_url, service_key, state_table, state_key, order_key)
         print("No subscriptions found. State updated without sending alerts.")
         return
 
-    sent, removed = send_notifications(portfolio, purchase, subscriptions)
-    set_state(supabase_url, service_key, state_table, state_key, purchase_key)
+    sent, removed = send_notifications(portfolio, order, subscriptions)
+    set_state(supabase_url, service_key, state_table, state_key, order_key)
     print(f"Sent {sent} notification(s); removed {removed} dead subscription(s).")
 
 

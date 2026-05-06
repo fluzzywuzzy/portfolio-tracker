@@ -340,6 +340,16 @@ h1 {
   font-size: 0.92rem;
 }
 
+.purchase-price,
+.purchase-result {
+  margin-top: 4px;
+  font-size: 0.92rem;
+}
+
+.purchase-price {
+  color: var(--muted);
+}
+
 .purchase-impact {
   color: var(--gold);
   font-weight: 700;

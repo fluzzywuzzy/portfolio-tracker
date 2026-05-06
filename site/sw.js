@@ -6,17 +6,17 @@ self.addEventListener("push", (event) => {
   } catch {
     payload = {
       title: "Portfolio update",
-      body: event.data ? event.data.text() : "A new purchase was detected.",
+      body: event.data ? event.data.text() : "A new order was detected.",
     };
   }
 
   const title = payload.title || "Portfolio update";
   const options = {
-    body: payload.body || "A new purchase was detected.",
+    body: payload.body || "A new order was detected.",
     data: {
       url: payload.url || self.location.origin,
     },
-    tag: payload.tag || "portfolio-purchase-alert",
+    tag: payload.tag || "portfolio-order-alert",
     renotify: true,
   };
 

@@ -14,7 +14,7 @@ Because Avanza credentials are inherently trading-capable, this is the safest pr
 ## Structure
 
 - `scripts/export_portfolio.py`: logs in to Avanza and exports a sanitized JSON snapshot.
-- `scripts/notify_new_purchase.py`: sends web push notifications when the latest purchase changes.
+- `scripts/notify_new_purchase.py`: sends web push notifications when the latest order changes.
 - `scripts/generate_vapid_keys.py`: generates VAPID keys for browser push.
 - `site/index.html`: static public page.
 - `site/app.js`: renders the snapshot.
@@ -68,7 +68,9 @@ This updates `site/portfolio.json` with:
 
 - portfolio allocation percentages
 - holding-level percentage performance when available
-- the 10 latest buy transactions for the included accounts
+- the 10 latest buy or sell transactions for the included accounts
+- spot price at the time for each listed order when Avanza returns it
+- for sells, percentage gain/loss versus matched earlier buys when enough history is available
 
 ## Push Notifications
 
@@ -148,7 +150,7 @@ python3 scripts/notify_new_purchase.py
 Behavior:
 
 - first run initializes state and sends nothing
-- later runs send notifications only when the top `recentPurchases[0]` entry changes
+- later runs send notifications only when the top `recentOrders[0]` entry changes
 - expired subscriptions are removed automatically when the push service returns `404` or `410`
 
 ## Preview

@@ -55,6 +55,50 @@ function formatPurchaseTime(value) {
   return value;
 }
 
+function formatOrderType(value) {
+  const normalized = typeof value === "string" ? value.trim().toUpperCase() : "";
+  if (normalized === "SELL") {
+    return "Sell";
+  }
+  if (normalized === "BUY") {
+    return "Buy";
+  }
+  return "Order";
+}
+
+function formatPrice(value, currency) {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return "Spot price unavailable";
+  }
+
+  if (typeof currency === "string" && /^[A-Z]{3}$/.test(currency.trim().toUpperCase())) {
+    try {
+      return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: currency.trim().toUpperCase(),
+        maximumFractionDigits: 2,
+      }).format(value);
+    } catch (_error) {
+      // Fall back to plain numeric formatting if the currency code is unsupported.
+    }
+  }
+
+  return value.toFixed(2);
+}
+
+function formatHoldingPeriod(value) {
+  if (!Number.isInteger(value) || value < 0) {
+    return null;
+  }
+
+  if (value >= 90) {
+    const months = Math.max(1, Math.round(value / 30));
+    return `${months} month${months === 1 ? "" : "s"}`;
+  }
+
+  return `${value} day${value === 1 ? "" : "s"}`;
+}
+
 function createSummaryCard(label, value) {
   const card = document.createElement("article");
   card.className = "summary-card";
@@ -146,21 +190,39 @@ function renderPurchases(data) {
   const template = document.getElementById("purchase-template");
   root.replaceChildren();
 
-  const purchases = data.recentPurchases ?? [];
+  const purchases = data.recentOrders ?? data.recentPurchases ?? [];
   if (purchases.length === 0) {
     const empty = document.createElement("p");
     empty.className = "purchase-empty";
-    empty.textContent = "No purchase history available in the current snapshot.";
+    empty.textContent = "No buy or sell history available in the current snapshot.";
     root.appendChild(empty);
     return;
   }
 
   for (const purchase of purchases) {
     const node = template.content.firstElementChild.cloneNode(true);
-    node.querySelector(".purchase-name").textContent = purchase.name || "Unknown purchase";
+    node.querySelector(".purchase-name").textContent =
+      `${formatOrderType(purchase.orderType)} · ${purchase.name || "Unknown order"}`;
     node.querySelector(".purchase-time").textContent = formatPurchaseTime(purchase.tradeDate);
+    node.querySelector(".purchase-price").textContent =
+      `Spot price: ${formatPrice(purchase.spotPrice, purchase.priceCurrency)}`;
     node.querySelector(".purchase-impact").textContent =
       `${formatPercent(purchase.portfolioImpactPercent)} of portfolio`;
+
+    const resultNode = node.querySelector(".purchase-result");
+    if (purchase.orderType === "SELL" && typeof purchase.sellPerformancePercent === "number") {
+      const holdingPeriod = formatHoldingPeriod(purchase.matchedHoldingPeriodDays);
+      resultNode.textContent = holdingPeriod
+        ? `${formatSignedPercent(purchase.sellPerformancePercent)} in ${holdingPeriod}`
+        : formatSignedPercent(purchase.sellPerformancePercent);
+      resultNode.classList.add(performanceClass(purchase.sellPerformancePercent));
+    } else if (purchase.orderType === "SELL") {
+      resultNode.textContent = "no matched buy";
+      resultNode.classList.add("is-neutral");
+    } else {
+      resultNode.remove();
+    }
+
     root.appendChild(node);
   }
 }
@@ -316,13 +378,13 @@ async function refreshSubscriptionUi() {
 
     subscribeButton.textContent = "Alerts enabled";
     subscribeButton.disabled = true;
-    setSubscriptionStatus("This browser is subscribed to new purchase alerts.");
+    setSubscriptionStatus("This browser is subscribed to new order alerts.");
     return;
   }
 
   subscribeButton.textContent = "Enable alerts";
   subscribeButton.disabled = false;
-  setSubscriptionStatus("Allow notifications to get alerted on new purchases.");
+  setSubscriptionStatus("Allow notifications to get alerted on new orders.");
 }
 
 async function setupNotifications() {
@@ -350,7 +412,7 @@ async function setupNotifications() {
 
       await ensurePushSubscription();
       subscribeButton.textContent = "Alerts enabled";
-      setSubscriptionStatus("Notifications enabled for new purchases.");
+      setSubscriptionStatus("Notifications enabled for new orders.");
     } catch (error) {
       subscribeButton.textContent = "Enable alerts";
       subscribeButton.disabled = false;
