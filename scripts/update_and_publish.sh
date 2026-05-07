@@ -38,6 +38,10 @@ if [[ -n "$(git status --porcelain --untracked-files=no -- site/portfolio.json)"
   exit 1
 fi
 
+log "Syncing local branch with origin/main."
+git fetch origin
+git rebase origin/main
+
 source .venv/bin/activate
 
 log "Exporting latest portfolio snapshot."
