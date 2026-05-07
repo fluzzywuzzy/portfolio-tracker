@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-05-07T17:05:55.504002+00:00",
+  "generatedAt": "2026-05-07T17:07:59.624243+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 15,
@@ -25,8 +25,8 @@
           "name": "Microsoft",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 78.16,
-          "allocationPercent": 19.93
+          "performancePercent": 78.02,
+          "allocationPercent": 19.91
         },
         {
           "name": "MPC Container Ships",
@@ -39,8 +39,8 @@
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 64.65,
-          "allocationPercent": 9.74
+          "performancePercent": 64.4,
+          "allocationPercent": 9.72
         },
         {
           "name": "AstraZeneca",
@@ -60,15 +60,15 @@
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -50.24,
-          "allocationPercent": 3.47
+          "performancePercent": -49.99,
+          "allocationPercent": 3.49
         },
         {
           "name": "NanoViricides",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 22.65,
-          "allocationPercent": 3.33
+          "performancePercent": 23.52,
+          "allocationPercent": 3.35
         },
         {
           "name": "Evolution",
@@ -88,15 +88,15 @@
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -13.62,
+          "performancePercent": -13.64,
           "allocationPercent": 2.48
         },
         {
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -33.93,
-          "allocationPercent": 2.09
+          "performancePercent": -34.37,
+          "allocationPercent": 2.08
         },
         {
           "name": "M Vest Water",
@@ -116,7 +116,7 @@
           "name": "Polestar ADR",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -92.05,
+          "performancePercent": -92.08,
           "allocationPercent": 0.23
         }
       ],
