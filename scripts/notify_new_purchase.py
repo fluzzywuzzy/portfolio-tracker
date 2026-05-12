@@ -59,6 +59,20 @@ def latest_order_key(order: dict[str, Any]) -> str:
             str(order.get("name", "")),
             str(order.get("orderType", "")),
             str(order.get("accountId", "")),
+            str(order.get("spotPrice", "")),
+            str(order.get("priceCurrency", "")),
+            str(order.get("volume", "")),
+        ]
+    )
+
+
+def legacy_latest_order_key(order: dict[str, Any]) -> str:
+    return "|".join(
+        [
+            str(order.get("tradeDate", "")),
+            str(order.get("name", "")),
+            str(order.get("orderType", "")),
+            str(order.get("accountId", "")),
             str(order.get("portfolioImpactPercent", "")),
         ]
     )
@@ -197,6 +211,7 @@ def main() -> None:
 
     order = orders[0]
     order_key = latest_order_key(order)
+    legacy_order_key = legacy_latest_order_key(order)
 
     supabase_url = normalize_supabase_url(require_env("SUPABASE_URL"))
     service_key = require_env("SUPABASE_SERVICE_ROLE_KEY")
@@ -210,6 +225,10 @@ def main() -> None:
         previous_key = get_state(supabase_url, service_key, state_table, "latest_purchase")
     if previous_key == order_key:
         print("Latest order unchanged. No notifications sent.")
+        return
+    if previous_key == legacy_order_key:
+        set_state(supabase_url, service_key, state_table, state_key, order_key)
+        print("Migrated legacy notification state to stable order key. No notifications sent.")
         return
 
     if previous_key is None and not notify_on_first_run:
