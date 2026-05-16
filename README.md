@@ -49,9 +49,13 @@ Optional:
 - `PORTFOLIO_TITLE`
 - `PORTFOLIO_OWNER`
 - `AVANZA_ACCOUNT_IDS`
+- `AVANZA_TRANSACTION_MAX_ELEMENTS`
 - `PUBLIC_NOTE`
 
 `AVANZA_ACCOUNT_IDS` should be a comma-separated list if you only want to publish specific accounts. If omitted, the exporter tries to include all accounts returned by the positions endpoint.
+
+`AVANZA_TRANSACTION_MAX_ELEMENTS` controls how many buy/sell transactions the exporter asks Avanza for in each transaction request.
+It defaults to `10000`.
 
 ## Export Data
 
@@ -71,6 +75,10 @@ This updates `site/portfolio.json` with:
 - the 10 latest buy or sell transactions for the included accounts
 - spot price at the time for each listed order when Avanza returns it
 - for sells, percentage gain/loss versus matched earlier buys when enough history is available
+
+If a recent sell cannot be matched from the broad transaction response, the exporter makes an additional transaction request filtered by that instrument's ISIN across all accounts.
+It then recalculates the recent order matches.
+Instrument transfers move FIFO lots between accounts when the corresponding transfer out and transfer in can be paired.
 
 ## Push Notifications
 

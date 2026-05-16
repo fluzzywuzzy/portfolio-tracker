@@ -2,12 +2,12 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-05-15T17:00:42.391968+00:00",
+  "generatedAt": "2026-05-16T06:37:38.803131+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 14,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 7.17
+    "ytdPerformancePercent": 7.24
   },
   "accounts": [
     {
@@ -19,97 +19,97 @@
           "ticker": null,
           "type": "STOCK",
           "performancePercent": 111.94,
-          "allocationPercent": 24.96
+          "allocationPercent": 25.02
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 24.87,
-          "allocationPercent": 23.11
+          "performancePercent": 24.9,
+          "allocationPercent": 23.17
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 65.99,
-          "allocationPercent": 12.52
+          "performancePercent": 65.22,
+          "allocationPercent": 12.49
         },
         {
-          "name": "AstraZeneca",
+          "name": "AstraZeneca ADR",
           "ticker": null,
           "type": "STOCK",
           "performancePercent": 14.63,
-          "allocationPercent": 11.13
+          "allocationPercent": 11.16
         },
         {
           "name": "NanoViricides",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 34.33,
-          "allocationPercent": 4.65
+          "performancePercent": 31.79,
+          "allocationPercent": 4.57
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
           "performancePercent": -59.03,
-          "allocationPercent": 4.24
+          "allocationPercent": 4.25
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -57.51,
-          "allocationPercent": 3.78
+          "performancePercent": -57.21,
+          "allocationPercent": 3.81
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -3.88,
+          "performancePercent": -4.23,
           "allocationPercent": 3.32
-        },
-        {
-          "name": "Forum Markets",
-          "ticker": null,
-          "type": "STOCK",
-          "performancePercent": -22.86,
-          "allocationPercent": 3.13
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -18.4,
-          "allocationPercent": 2.98
+          "performancePercent": -18.42,
+          "allocationPercent": 2.99
+        },
+        {
+          "name": "Forum Markets",
+          "ticker": null,
+          "type": "STOCK",
+          "performancePercent": -26.93,
+          "allocationPercent": 2.97
         },
         {
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -36.26,
-          "allocationPercent": 2.57
+          "performancePercent": -35.07,
+          "allocationPercent": 2.62
         },
         {
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
           "performancePercent": -66.4,
-          "allocationPercent": 1.77
+          "allocationPercent": 1.78
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
           "performancePercent": -95.14,
-          "allocationPercent": 1.49
+          "allocationPercent": 1.5
         },
         {
           "name": "Polestar ADR",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -90.86,
+          "performancePercent": -90.91,
           "allocationPercent": 0.34
         }
       ],
@@ -118,15 +118,15 @@
   ],
   "recentOrders": [
     {
-      "name": "Microsoft",
+      "name": "MICROSOFT CORP",
       "orderType": "SELL",
       "accountId": "1872173",
-      "tradeDate": "2026-05-15T18:24:40.857",
+      "tradeDate": "2026-05-15",
       "spotPrice": 426.0,
       "priceCurrency": "USD",
-      "sellPerformancePercent": null,
-      "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 2.78
+      "sellPerformancePercent": 84.81,
+      "matchedHoldingPeriodDays": 755,
+      "portfolioImpactPercent": 26.19
     },
     {
       "name": "CAMECO CORP",
@@ -137,7 +137,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 3.46
+      "portfolioImpactPercent": 3.47
     },
     {
       "name": "SEB A",
@@ -148,7 +148,7 @@
       "priceCurrency": "SEK",
       "sellPerformancePercent": 0.39,
       "matchedHoldingPeriodDays": 269,
-      "portfolioImpactPercent": 4.72
+      "portfolioImpactPercent": 4.73
     },
     {
       "name": "SAXLUND GROUP AB",
@@ -170,7 +170,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 3.46
+      "portfolioImpactPercent": 3.47
     },
     {
       "name": "Solid Power Inc.",
@@ -181,7 +181,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 4.03
+      "portfolioImpactPercent": 4.04
     },
     {
       "name": "ETHZilla Corp",
@@ -192,7 +192,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 4.06
+      "portfolioImpactPercent": 4.07
     },
     {
       "name": "SAAB B",
@@ -203,7 +203,7 @@
       "priceCurrency": "SEK",
       "sellPerformancePercent": 35.95,
       "matchedHoldingPeriodDays": 235,
-      "portfolioImpactPercent": 10.78
+      "portfolioImpactPercent": 10.8
     },
     {
       "name": "MPC Container Ships AS",
@@ -214,7 +214,7 @@
       "priceCurrency": "NOK",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 7.05
+      "portfolioImpactPercent": 7.06
     },
     {
       "name": "DASSAULT AVIATION SA",
@@ -225,7 +225,7 @@
       "priceCurrency": "EUR",
       "sellPerformancePercent": 3.45,
       "matchedHoldingPeriodDays": 192,
-      "portfolioImpactPercent": 5.31
+      "portfolioImpactPercent": 5.32
     }
   ]
 }

@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = ROOT / "site" / "portfolio.json"
 ENV_PATH = ROOT / ".env"
 TRANSACTION_HISTORY_START = date(2000, 1, 1)
+DEFAULT_TRANSACTION_MAX_ELEMENTS = 10000
+DISPLAY_ORDER_TYPES = {"BUY", "SELL"}
+ACQUISITION_ORDER_TYPES = {"BUY"}
 
 
 def load_dotenv(path: Path) -> None:
@@ -35,6 +38,22 @@ def require_env(name: str) -> str:
     value = os.getenv(name, "").strip()
     if not value:
         raise RuntimeError(f"Missing required environment variable: {name}")
+    return value
+
+
+def int_env(name: str, default: int) -> int:
+    raw_value = os.getenv(name, "").strip()
+    if not raw_value:
+        return default
+
+    try:
+        value = int(raw_value)
+    except ValueError:
+        raise RuntimeError(f"{name} must be an integer") from None
+
+    if value <= 0:
+        raise RuntimeError(f"{name} must be greater than zero")
+
     return value
 
 
@@ -370,12 +389,24 @@ def extract_transaction_asset_aliases(transaction: dict[str, Any]) -> list[str]:
     return aliases
 
 
+def extract_transaction_isin(transaction: dict[str, Any]) -> str | None:
+    candidates = [
+        ("isin",),
+        ("orderbook", "isin"),
+    ]
+    for path in candidates:
+        text = as_text(dig(transaction, *path))
+        if text:
+            return text
+    return None
+
+
 def resolve_lots_for_aliases(
-    alias_to_lots: dict[tuple[str | None, str], list[dict[str, float]]],
+    alias_to_lots: dict[tuple[str | None, str], list[dict[str, Any]]],
     account_id: str | None,
     aliases: list[str],
-) -> list[dict[str, float]]:
-    existing_ledgers: list[list[dict[str, float]]] = []
+) -> list[dict[str, Any]]:
+    existing_ledgers: list[list[dict[str, Any]]] = []
 
     for alias in aliases:
         existing = alias_to_lots.get((account_id, alias))
@@ -464,6 +495,49 @@ def extract_transaction_volume(transaction: dict[str, Any]) -> float | None:
     return None
 
 
+def extract_transaction_signed_volume(transaction: dict[str, Any]) -> float | None:
+    candidates = [
+        ("volume", "value"),
+        ("volume",),
+    ]
+    for path in candidates:
+        number = as_float(dig(transaction, *path))
+        if number is not None and number != 0:
+            return number
+    return None
+
+
+def extract_instrument_transfer_direction(transaction: dict[str, Any]) -> str | None:
+    if extract_transaction_type(transaction) != "INSTRUMENT_TRANSFER":
+        return None
+
+    backoffice_type = as_text(transaction.get("backofficeType"))
+    if backoffice_type:
+        normalized = backoffice_type.upper()
+        if "DEPOSIT" in normalized:
+            return "IN"
+        if "WITHDRAW" in normalized:
+            return "OUT"
+
+    signed_volume = extract_transaction_signed_volume(transaction)
+    if signed_volume is None:
+        return None
+    return "IN" if signed_volume > 0 else "OUT"
+
+
+def processing_sort_rank(transaction: dict[str, Any]) -> int:
+    order_type = extract_transaction_type(transaction)
+    if order_type == "BUY":
+        return 0
+    if extract_instrument_transfer_direction(transaction) == "OUT":
+        return 1
+    if extract_instrument_transfer_direction(transaction) == "IN":
+        return 2
+    if order_type == "SELL":
+        return 3
+    return 4
+
+
 def extract_transaction_currency(transaction: dict[str, Any]) -> str | None:
     candidates = [
         ("priceInTradedCurrency", "unit"),
@@ -510,8 +584,13 @@ def calculate_sell_match(
     matched_cost = 0.0
     matched_dates: list[date] = []
     sell_date = parse_iso_date(order.get("tradeDate"))
+    order_currency = as_text(order.get("priceCurrency"))
 
     for lot in lots:
+        lot_currency = as_text(lot.get("priceCurrency"))
+        if order_currency and lot_currency and order_currency != lot_currency:
+            continue
+
         lot_volume = lot["remainingVolume"]
         if lot_volume <= 0:
             continue
@@ -553,38 +632,84 @@ def consume_sell_volume(order: dict[str, Any], lots: list[dict[str, Any]]) -> No
     if not isinstance(volume, (int, float)) or volume <= 0:
         return
 
-    remaining = float(volume)
+    consume_lot_volume(float(volume), lots, as_text(order.get("priceCurrency")))
+
+
+def consume_lot_volume(
+    volume: float,
+    lots: list[dict[str, Any]],
+    price_currency: str | None = None,
+) -> list[dict[str, Any]]:
+    if volume <= 0:
+        return []
+
+    remaining = volume
     updated_lots: list[dict[str, Any]] = []
+    consumed_lots: list[dict[str, Any]] = []
 
     for lot in lots:
         if remaining <= 0:
             updated_lots.append(lot)
             continue
 
+        lot_currency = as_text(lot.get("priceCurrency"))
+        if price_currency and lot_currency and price_currency != lot_currency:
+            updated_lots.append(lot)
+            continue
+
         lot_volume = lot["remainingVolume"]
         if lot_volume <= remaining:
+            consumed_lots.append({**lot, "remainingVolume": lot_volume})
             remaining -= lot_volume
             continue
 
+        consumed_lots.append({**lot, "remainingVolume": remaining})
         lot["remainingVolume"] = lot_volume - remaining
         remaining = 0.0
         updated_lots.append(lot)
 
     lots[:] = [lot for lot in updated_lots if lot["remainingVolume"] > 0]
+    return consumed_lots
+
+
+def strip_private_recent_order_fields(orders: list[dict[str, Any]]) -> None:
+    for order in orders:
+        order.pop("_sortTimestamp", None)
+        order.pop("_assetAliases", None)
+        order.pop("_isin", None)
+        order.pop("_processingSortRank", None)
+        order.pop("_transferDirection", None)
+        order.pop("id", None)
+        order.pop("volume", None)
 
 
 def extract_recent_orders(
-    payload: dict[str, Any], included_account_ids: set[str], portfolio_total: float
+    payload: dict[str, Any],
+    included_account_ids: set[str],
+    portfolio_total: float,
+    *,
+    keep_private_fields: bool = False,
+    include_external_cost_basis: bool = True,
 ) -> list[dict[str, Any]]:
     chronological_orders: list[dict[str, Any]] = []
 
     for transaction in extract_transactions(payload):
         account_id = extract_transaction_account_id(transaction)
-        if included_account_ids and account_id not in included_account_ids:
+        is_display_account = (
+            not included_account_ids or account_id in included_account_ids
+        )
+        if not is_display_account and not include_external_cost_basis:
             continue
 
         order_type = extract_transaction_type(transaction)
-        if order_type not in {"BUY", "SELL"}:
+        if order_type in DISPLAY_ORDER_TYPES:
+            include_order = True
+        elif order_type == "INSTRUMENT_TRANSFER":
+            include_order = True
+        else:
+            include_order = False
+
+        if not include_order:
             continue
 
         amount = extract_transaction_amount(transaction)
@@ -592,7 +717,12 @@ def extract_recent_orders(
             {
                 "id": as_text(transaction.get("id")) or "",
                 "_sortTimestamp": extract_transaction_timestamp(transaction) or "",
+                "_processingSortRank": processing_sort_rank(transaction),
                 "_assetAliases": extract_transaction_asset_aliases(transaction),
+                "_isin": extract_transaction_isin(transaction),
+                "_transferDirection": extract_instrument_transfer_direction(
+                    transaction
+                ),
                 "name": extract_transaction_name(transaction),
                 "orderType": order_type,
                 "accountId": account_id,
@@ -612,11 +742,13 @@ def extract_recent_orders(
         key=lambda order: (
             order.get("tradeDate") or "",
             order.get("_sortTimestamp") or "",
+            order.get("_processingSortRank") or 0,
             order.get("id") or "",
         )
     )
 
-    lots_by_asset: dict[tuple[str | None, str], list[dict[str, float]]] = {}
+    lots_by_asset: dict[tuple[str | None, str], list[dict[str, Any]]] = {}
+    pending_transfers: dict[tuple[str, str, float], list[list[dict[str, Any]]]] = {}
 
     for order in chronological_orders:
         asset_aliases = order.pop("_assetAliases", [])
@@ -629,14 +761,68 @@ def extract_recent_orders(
             [alias for alias in asset_aliases if isinstance(alias, str) and alias],
         )
 
-        if order["orderType"] == "BUY":
+        if order["orderType"] == "INSTRUMENT_TRANSFER":
+            transfer_direction = order.get("_transferDirection")
+            transfer_volume = order.get("volume")
+            isin = as_text(order.get("_isin"))
+            transfer_date = as_text(order.get("tradeDate"))
+
+            if (
+                transfer_direction
+                and isinstance(transfer_volume, (int, float))
+                and transfer_volume > 0
+                and isin
+                and transfer_date
+            ):
+                transfer_key = (isin, transfer_date, round(float(transfer_volume), 8))
+
+                if transfer_direction == "OUT":
+                    moved_lots = consume_lot_volume(float(transfer_volume), lots)
+                    if moved_lots:
+                        pending_transfers.setdefault(transfer_key, []).append(
+                            moved_lots
+                        )
+                elif transfer_direction == "IN":
+                    moved_lots_batches = pending_transfers.get(transfer_key, [])
+                    moved_lots = (
+                        moved_lots_batches.pop(0) if moved_lots_batches else []
+                    )
+                    if not moved_lots_batches:
+                        pending_transfers.pop(transfer_key, None)
+
+                    if moved_lots:
+                        lots.extend({**lot} for lot in moved_lots)
+                    else:
+                        unit_price = order.get("spotPrice")
+                        if (
+                            isinstance(unit_price, (int, float))
+                            and unit_price > 0
+                            and order.get("priceCurrency")
+                        ):
+                            lots.append(
+                                {
+                                    "remainingVolume": float(transfer_volume),
+                                    "unitPrice": float(unit_price),
+                                    "priceCurrency": order.get("priceCurrency"),
+                                    "tradeDate": order.get("tradeDate"),
+                                }
+                            )
+            continue
+
+        if order["orderType"] in ACQUISITION_ORDER_TYPES:
             unit_price = order.get("spotPrice")
             volume = order.get("volume")
-            if isinstance(unit_price, (int, float)) and unit_price > 0 and isinstance(volume, (int, float)) and volume > 0:
+            if (
+                isinstance(unit_price, (int, float))
+                and unit_price > 0
+                and isinstance(volume, (int, float))
+                and volume > 0
+            ):
                 lots.append(
                     {
                         "remainingVolume": float(volume),
                         "unitPrice": float(unit_price),
+                        "priceCurrency": order.get("priceCurrency"),
                         "tradeDate": order.get("tradeDate"),
                     }
                 )
@@ -657,12 +843,68 @@ def extract_recent_orders(
         reverse=True,
     )
 
-    recent_orders = chronological_orders[:10]
-    for order in recent_orders:
-        order.pop("_sortTimestamp", None)
-        order.pop("id", None)
-        order.pop("volume", None)
+    recent_orders = [
+        order
+        for order in chronological_orders
+        if order["orderType"] in DISPLAY_ORDER_TYPES
+        and (not included_account_ids or order.get("accountId") in included_account_ids)
+    ][:10]
+    if not keep_private_fields:
+        strip_private_recent_order_fields(recent_orders)
     return recent_orders
+
+
+def transaction_identity(transaction: dict[str, Any]) -> tuple[Any, ...]:
+    transaction_id = as_text(transaction.get("id"))
+    if transaction_id:
+        return ("id", transaction_id)
+
+    return (
+        "fallback",
+        extract_transaction_account_id(transaction),
+        extract_transaction_isin(transaction),
+        extract_transaction_type(transaction),
+        extract_transaction_timestamp(transaction),
+        extract_transaction_volume(transaction),
+        extract_transaction_amount(transaction),
+    )
+
+
+def merge_transactions_payloads(payloads: list[dict[str, Any]]) -> dict[str, Any]:
+    merged = dict(payloads[0]) if payloads else {}
+    transactions: list[dict[str, Any]] = []
+    seen: set[tuple[Any, ...]] = set()
+
+    for payload in payloads:
+        for transaction in extract_transactions(payload):
+            key = transaction_identity(transaction)
+            if key in seen:
+                continue
+            seen.add(key)
+            transactions.append(transaction)
+
+    merged["transactions"] = transactions
+    return merged
+
+
+def unmatched_recent_sell_isins(recent_orders: list[dict[str, Any]]) -> list[str]:
+    isins: list[str] = []
+    seen: set[str] = set()
+
+    for order in recent_orders:
+        if order.get("orderType") != "SELL":
+            continue
+        if order.get("sellPerformancePercent") is not None:
+            continue
+
+        isin = as_text(order.get("_isin"))
+        if not isin or isin in seen:
+            continue
+
+        seen.add(isin)
+        isins.append(isin)
+
+    return isins
 
 
 def extract_balance_value(value: Any) -> float | None:
@@ -715,32 +957,84 @@ def extract_ytd_performance_percent(
 def fetch_transactions_payload(
     client: Avanza,
     included_account_ids: set[str],
+    *,
+    isin: str | None = None,
+    include_all_transaction_types: bool = False,
+    include_all_accounts: bool = False,
 ) -> dict[str, Any]:
-    account_ids = sorted(account_id for account_id in included_account_ids if account_id)
-    if account_ids:
+    account_ids = sorted(
+        account_id for account_id in included_account_ids if account_id
+    )
+    max_elements = int_env(
+        "AVANZA_TRANSACTION_MAX_ELEMENTS",
+        DEFAULT_TRANSACTION_MAX_ELEMENTS,
+    )
+
+    if account_ids or include_all_accounts:
+        params = {
+            "maxElements": max_elements,
+            "from": TRANSACTION_HISTORY_START.isoformat(),
+        }
+        if account_ids and not include_all_accounts:
+            params["accountIds"] = ",".join(account_ids)
+        if not include_all_transaction_types:
+            params["transactionTypes"] = ",".join(
+                [TransactionsDetailsType.BUY.value, TransactionsDetailsType.SELL.value]
+            )
+        if isin:
+            params["isin"] = isin
+
         return client._Avanza__call(
             HttpMethod.GET,
             Route.TRANSACTIONS_DETAILS_PATH.value,
-            {
-                "maxElements": 1000,
-                "transactionTypes": ",".join(
-                    [TransactionsDetailsType.BUY.value, TransactionsDetailsType.SELL.value]
-                ),
-                "accountIds": ",".join(account_ids),
-                "from": TRANSACTION_HISTORY_START.isoformat(),
-            },
+            params,
         )
 
     return to_dict(
         client.get_transactions_details(
-            transaction_details_types=[
+            transaction_details_types=[]
+            if include_all_transaction_types
+            else [
                 TransactionsDetailsType.BUY,
                 TransactionsDetailsType.SELL,
             ],
             transactions_from=TRANSACTION_HISTORY_START,
-            max_elements=1000,
+            isin=isin,
+            max_elements=max_elements,
         )
     )
+
+
+def fetch_transactions_with_sell_backfill(
+    client: Avanza,
+    included_account_ids: set[str],
+    portfolio_total: float,
+) -> dict[str, Any]:
+    payload = fetch_transactions_payload(client, included_account_ids)
+    recent_orders = extract_recent_orders(
+        payload,
+        included_account_ids,
+        portfolio_total,
+        keep_private_fields=True,
+    )
+    missing_isins = unmatched_recent_sell_isins(recent_orders)
+
+    if not missing_isins:
+        return payload
+
+    payloads = [payload]
+    for isin in missing_isins:
+        payloads.append(
+            fetch_transactions_payload(
+                client,
+                included_account_ids,
+                isin=isin,
+                include_all_transaction_types=True,
+                include_all_accounts=True,
+            )
+        )
+
+    return merge_transactions_payloads(payloads)
 
 
 def sanitize_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -850,7 +1144,11 @@ def main() -> None:
         included_account_ids,
     )
 
-    transactions_payload = fetch_transactions_payload(client, included_account_ids)
+    transactions_payload = fetch_transactions_with_sell_backfill(
+        client,
+        included_account_ids,
+        portfolio_total,
+    )
     sanitized["recentOrders"] = extract_recent_orders(
         transactions_payload,
         included_account_ids,
