@@ -2,12 +2,12 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-06-19T11:00:42.596910+00:00",
+  "generatedAt": "2026-06-19T14:00:42.722970+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 16,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 14.01
+    "ytdPerformancePercent": 14.0
   },
   "accounts": [
     {
@@ -19,21 +19,21 @@
           "ticker": null,
           "type": "STOCK",
           "performancePercent": 127.43,
-          "allocationPercent": 21.82
+          "allocationPercent": 21.81
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 26.48,
-          "allocationPercent": 19.06
+          "performancePercent": 26.34,
+          "allocationPercent": 19.04
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 91.38,
-          "allocationPercent": 11.76
+          "performancePercent": 91.37,
+          "allocationPercent": 11.75
         },
         {
           "name": "AstraZeneca",
@@ -46,22 +46,22 @@
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 19.83,
+          "performancePercent": 19.82,
           "allocationPercent": 7.19
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 16.79,
-          "allocationPercent": 7.08
+          "performancePercent": 17.62,
+          "allocationPercent": 7.13
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -7.24,
-          "allocationPercent": 3.74
+          "performancePercent": -7.57,
+          "allocationPercent": 3.73
         },
         {
           "name": "Evolution",
@@ -102,7 +102,7 @@
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -34.42,
+          "performancePercent": -34.43,
           "allocationPercent": 2.15
         },
         {
@@ -151,7 +151,7 @@
       "priceCurrency": "SEK",
       "sellPerformancePercent": -5.27,
       "matchedHoldingPeriodDays": 5,
-      "portfolioImpactPercent": 5.02
+      "portfolioImpactPercent": 5.01
     },
     {
       "name": "BEAR OLJA X1.5 AVA 1",
@@ -217,7 +217,7 @@
       "priceCurrency": "DKK",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 4.04
+      "portfolioImpactPercent": 4.03
     },
     {
       "name": "MICROSOFT CORP",
@@ -228,7 +228,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": 84.81,
       "matchedHoldingPeriodDays": 755,
-      "portfolioImpactPercent": 21.28
+      "portfolioImpactPercent": 21.27
     },
     {
       "name": "CAMECO CORP",
