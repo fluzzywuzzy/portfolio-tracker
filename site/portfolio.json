@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-08-03T09:00:17.253639+00:00",
+  "generatedAt": "2026-08-03T11:00:17.173353+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 16,
@@ -18,98 +18,98 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 141.42,
-          "allocationPercent": 24.05
+          "performancePercent": 141.18,
+          "allocationPercent": 24.03
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 26.72,
-          "allocationPercent": 19.84
+          "performancePercent": 26.13,
+          "allocationPercent": 19.74
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 66.66,
-          "allocationPercent": 10.63
+          "performancePercent": 66.77,
+          "allocationPercent": 10.64
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 2.37,
-          "allocationPercent": 8.41
+          "performancePercent": 3.65,
+          "allocationPercent": 8.51
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 27.95,
-          "allocationPercent": 8.05
+          "performancePercent": 27.31,
+          "allocationPercent": 8.01
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -23.13,
-          "allocationPercent": 4.79
+          "performancePercent": -23.08,
+          "allocationPercent": 4.8
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -54.22,
-          "allocationPercent": 4.01
+          "performancePercent": -54.0,
+          "allocationPercent": 4.03
         },
         {
           "name": "NanoViricides",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 36.57,
+          "performancePercent": 36.65,
           "allocationPercent": 4.0
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -4.98,
-          "allocationPercent": 3.98
+          "performancePercent": -4.79,
+          "allocationPercent": 3.99
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -61.97,
+          "performancePercent": -61.94,
           "allocationPercent": 2.86
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -18.4,
-          "allocationPercent": 2.52
+          "performancePercent": -18.35,
+          "allocationPercent": 2.53
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -22.36,
+          "performancePercent": -22.31,
           "allocationPercent": 2.27
         },
         {
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -62.99,
+          "performancePercent": -62.98,
           "allocationPercent": 1.65
         },
         {
           "name": "Solid Power A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -53.14,
+          "performancePercent": -53.11,
           "allocationPercent": 1.6
         },
         {
@@ -228,7 +228,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": 84.81,
       "matchedHoldingPeriodDays": 755,
-      "portfolioImpactPercent": 22.09
+      "portfolioImpactPercent": 22.1
     },
     {
       "name": "CAMECO CORP",
