@@ -2,12 +2,12 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-08-11T09:00:17.343853+00:00",
+  "generatedAt": "2026-08-11T11:00:19.144454+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 13,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 12.32
+    "ytdPerformancePercent": 12.31
   },
   "accounts": [
     {
@@ -18,64 +18,64 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 144.73,
-          "allocationPercent": 25.25
+          "performancePercent": 145.05,
+          "allocationPercent": 25.27
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 27.09,
-          "allocationPercent": 20.6
+          "performancePercent": 26.56,
+          "allocationPercent": 20.5
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 72.08,
-          "allocationPercent": 11.37
+          "performancePercent": 72.09,
+          "allocationPercent": 11.36
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 2.64,
-          "allocationPercent": 8.73
+          "performancePercent": 3.81,
+          "allocationPercent": 8.82
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 28.83,
-          "allocationPercent": 8.4
+          "performancePercent": 29.13,
+          "allocationPercent": 8.41
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -10.52,
-          "allocationPercent": 5.78
+          "performancePercent": -10.51,
+          "allocationPercent": 5.77
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -53.36,
-          "allocationPercent": 4.23
+          "performancePercent": -53.25,
+          "allocationPercent": 4.24
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -8.62,
-          "allocationPercent": 3.97
+          "performancePercent": -8.67,
+          "allocationPercent": 3.96
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
           "performancePercent": -59.76,
-          "allocationPercent": 3.14
+          "allocationPercent": 3.13
         },
         {
           "name": "CRISPR Therapeutics",
@@ -95,15 +95,15 @@
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -62.26,
-          "allocationPercent": 1.75
+          "performancePercent": -62.31,
+          "allocationPercent": 1.74
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -95.37,
-          "allocationPercent": 1.25
+          "performancePercent": -95.39,
+          "allocationPercent": 1.24
         }
       ],
       "allocationPercent": 100.0
@@ -196,7 +196,7 @@
       "priceCurrency": "SEK",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 5.55
+      "portfolioImpactPercent": 5.54
     },
     {
       "name": "ROLLS ROYCE HOLDINGS ORD",
@@ -207,7 +207,7 @@
       "priceCurrency": "GBP",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 6.52
+      "portfolioImpactPercent": 6.51
     },
     {
       "name": "IONQ INC",
@@ -218,7 +218,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 6.46
+      "portfolioImpactPercent": 6.45
     }
   ]
 }
