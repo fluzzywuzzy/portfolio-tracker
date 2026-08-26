@@ -2,12 +2,12 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-08-25T17:00:17.167579+00:00",
+  "generatedAt": "2026-08-26T09:00:17.223714+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 15,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 15.51
+    "ytdPerformancePercent": 17.4
   },
   "accounts": [
     {
@@ -18,22 +18,22 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 141.56,
-          "allocationPercent": 21.82
+          "performancePercent": 141.79,
+          "allocationPercent": 21.85
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 48.23,
-          "allocationPercent": 15.69
+          "performancePercent": 45.6,
+          "allocationPercent": 15.42
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 70.24,
-          "allocationPercent": 9.85
+          "performancePercent": 71.32,
+          "allocationPercent": 9.91
         },
         {
           "name": "Alphabet Inc Class C",
@@ -46,78 +46,78 @@
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 8.08,
-          "allocationPercent": 8.05
+          "performancePercent": 7.34,
+          "allocationPercent": 8.0
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 29.9,
-          "allocationPercent": 7.41
+          "performancePercent": 31.23,
+          "allocationPercent": 7.49
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -12.64,
-          "allocationPercent": 4.94
+          "performancePercent": -11.69,
+          "allocationPercent": 4.99
         },
         {
           "name": "Nordea",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 1.94,
-          "allocationPercent": 4.83
+          "performancePercent": 2.66,
+          "allocationPercent": 4.86
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -47.13,
-          "allocationPercent": 4.2
+          "performancePercent": -47.46,
+          "allocationPercent": 4.17
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -1.17,
-          "allocationPercent": 3.76
+          "performancePercent": -0.43,
+          "allocationPercent": 3.79
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -57.1,
-          "allocationPercent": 2.93
+          "performancePercent": -56.77,
+          "allocationPercent": 2.95
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 2.3,
-          "allocationPercent": 2.87
+          "performancePercent": 3.08,
+          "allocationPercent": 2.89
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -4.26,
+          "performancePercent": -4.29,
           "allocationPercent": 2.54
         },
         {
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -51.66,
+          "performancePercent": -51.74,
           "allocationPercent": 1.96
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -95.74,
-          "allocationPercent": 1.0
+          "performancePercent": -95.68,
+          "allocationPercent": 1.02
         }
       ],
       "allocationPercent": 100.0
