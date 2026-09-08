@@ -2,12 +2,12 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-09-07T17:00:39.211596+00:00",
+  "generatedAt": "2026-09-08T09:00:39.470041+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 15,
     "totalAllocationPercent": 100.0,
-    "ytdPerformancePercent": 16.46
+    "ytdPerformancePercent": 16.38
   },
   "accounts": [
     {
@@ -18,106 +18,106 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 135.86,
-          "allocationPercent": 21.5
+          "performancePercent": 135.83,
+          "allocationPercent": 21.49
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 45.71,
-          "allocationPercent": 15.57
+          "performancePercent": 46.28,
+          "allocationPercent": 15.62
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 77.69,
-          "allocationPercent": 10.37
+          "performancePercent": 78.24,
+          "allocationPercent": 10.4
         },
         {
           "name": "Alphabet Inc Class C",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -2.89,
-          "allocationPercent": 8.11
+          "performancePercent": -2.6,
+          "allocationPercent": 8.14
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 5.23,
-          "allocationPercent": 7.91
+          "performancePercent": 4.62,
+          "allocationPercent": 7.86
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 27.21,
-          "allocationPercent": 7.32
+          "performancePercent": 26.0,
+          "allocationPercent": 7.25
         },
         {
           "name": "Nordea",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 5.32,
-          "allocationPercent": 5.03
+          "performancePercent": 4.35,
+          "allocationPercent": 4.99
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -16.17,
-          "allocationPercent": 4.78
+          "performancePercent": -15.92,
+          "allocationPercent": 4.8
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -45.83,
-          "allocationPercent": 4.34
+          "performancePercent": -45.51,
+          "allocationPercent": 4.36
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 9.69,
-          "allocationPercent": 4.21
+          "performancePercent": 12.18,
+          "allocationPercent": 4.3
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -57.62,
-          "allocationPercent": 2.92
+          "performancePercent": -57.49,
+          "allocationPercent": 2.93
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -4.62,
-          "allocationPercent": 2.7
+          "performancePercent": -4.33,
+          "allocationPercent": 2.71
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -8.93,
-          "allocationPercent": 2.44
+          "performancePercent": -8.66,
+          "allocationPercent": 2.45
         },
         {
           "name": "M Vest Water",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -54.24,
-          "allocationPercent": 1.87
+          "performancePercent": -56.22,
+          "allocationPercent": 1.79
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -96.1,
-          "allocationPercent": 0.93
+          "performancePercent": -96.16,
+          "allocationPercent": 0.91
         }
       ],
       "allocationPercent": 100.0
@@ -155,7 +155,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": null,
       "matchedHoldingPeriodDays": null,
-      "portfolioImpactPercent": 8.36
+      "portfolioImpactPercent": 8.35
     },
     {
       "name": "NanoViricides Inc",
