@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-09-29T11:00:39.389840+00:00",
+  "generatedAt": "2026-09-29T14:00:39.474403+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 14,
@@ -18,99 +18,99 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 138.97,
-          "allocationPercent": 21.49
+          "performancePercent": 137.17,
+          "allocationPercent": 21.33
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 51.84,
-          "allocationPercent": 16.0
+          "performancePercent": 54.59,
+          "allocationPercent": 16.29
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 95.39,
-          "allocationPercent": 11.25
+          "performancePercent": 94.65,
+          "allocationPercent": 11.21
         },
         {
           "name": "Alphabet Inc Class C",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 2.23,
-          "allocationPercent": 8.43
+          "performancePercent": 1.84,
+          "allocationPercent": 8.4
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 12.95,
-          "allocationPercent": 8.38
+          "performancePercent": 10.67,
+          "allocationPercent": 8.21
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 29.69,
-          "allocationPercent": 7.37
+          "performancePercent": 29.59,
+          "allocationPercent": 7.36
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -1.65,
-          "allocationPercent": 5.54
+          "performancePercent": -0.23,
+          "allocationPercent": 5.62
         },
         {
           "name": "Nordea",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 7.22,
-          "allocationPercent": 5.06
+          "performancePercent": 5.4,
+          "allocationPercent": 4.97
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 16.31,
-          "allocationPercent": 4.4
+          "performancePercent": 18.28,
+          "allocationPercent": 4.48
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -49.82,
-          "allocationPercent": 3.97
+          "performancePercent": -50.22,
+          "allocationPercent": 3.93
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -3.75,
-          "allocationPercent": 2.69
+          "performancePercent": -2.68,
+          "allocationPercent": 2.72
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -63.96,
-          "allocationPercent": 2.45
+          "performancePercent": -63.66,
+          "allocationPercent": 2.47
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -18.13,
-          "allocationPercent": 2.16
+          "performancePercent": -17.4,
+          "allocationPercent": 2.18
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -96.51,
-          "allocationPercent": 0.82
+          "performancePercent": -96.45,
+          "allocationPercent": 0.83
         }
       ],
       "allocationPercent": 100.0
