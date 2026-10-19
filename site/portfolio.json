@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-10-19T09:00:30.277048+00:00",
+  "generatedAt": "2026-10-19T11:00:30.387550+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 14,
@@ -18,91 +18,91 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 141.76,
-          "allocationPercent": 22.74
+          "performancePercent": 141.62,
+          "allocationPercent": 22.71
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 57.04,
-          "allocationPercent": 17.31
+          "performancePercent": 57.61,
+          "allocationPercent": 17.36
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 76.82,
-          "allocationPercent": 10.65
+          "performancePercent": 76.57,
+          "allocationPercent": 10.63
         },
         {
           "name": "Alphabet Inc Class C",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 0.89,
-          "allocationPercent": 8.7
+          "performancePercent": 0.75,
+          "allocationPercent": 8.68
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 9.36,
+          "performancePercent": 9.46,
           "allocationPercent": 8.48
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 14.32,
+          "performancePercent": 14.41,
           "allocationPercent": 6.79
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 25.01,
-          "allocationPercent": 4.94
+          "performancePercent": 25.6,
+          "allocationPercent": 4.97
         },
         {
           "name": "Nordea",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -8.75,
-          "allocationPercent": 4.5
+          "performancePercent": -8.96,
+          "allocationPercent": 4.49
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -49.92,
+          "performancePercent": -49.88,
           "allocationPercent": 4.14
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -31.42,
-          "allocationPercent": 4.04
+          "performancePercent": -31.51,
+          "allocationPercent": 4.03
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -12.94,
+          "performancePercent": -13.06,
           "allocationPercent": 2.54
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -68.74,
+          "performancePercent": -68.78,
           "allocationPercent": 2.22
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -23.81,
+          "performancePercent": -23.91,
           "allocationPercent": 2.1
         },
         {
@@ -170,7 +170,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": 22.34,
       "matchedHoldingPeriodDays": 227,
-      "portfolioImpactPercent": 3.47
+      "portfolioImpactPercent": 3.46
     },
     {
       "name": "Solid Power Inc.",
@@ -214,7 +214,7 @@
       "priceCurrency": "SEK",
       "sellPerformancePercent": -5.27,
       "matchedHoldingPeriodDays": 5,
-      "portfolioImpactPercent": 4.92
+      "portfolioImpactPercent": 4.91
     },
     {
       "name": "BEAR OLJA X1.5 AVA 1",
