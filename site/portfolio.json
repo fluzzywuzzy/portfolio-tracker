@@ -2,7 +2,7 @@
   "title": "Portfolio Tracker",
   "owner": "Vincent Nord Lundstr\u00f6m",
   "publicNote": "Anonymized stock trading data",
-  "generatedAt": "2026-11-26T15:00:30.357795+00:00",
+  "generatedAt": "2026-11-26T18:00:30.465916+00:00",
   "summary": {
     "accounts": 1,
     "holdings": 14,
@@ -18,99 +18,99 @@
           "name": "Investor B",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 142.99,
-          "allocationPercent": 24.75
+          "performancePercent": 142.72,
+          "allocationPercent": 24.72
         },
         {
           "name": "MPC Container Ships",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 19.46,
-          "allocationPercent": 12.96
+          "performancePercent": 19.54,
+          "allocationPercent": 12.97
         },
         {
           "name": "AstraZeneca",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 26.35,
+          "performancePercent": 26.38,
           "allocationPercent": 10.61
         },
         {
           "name": "Taiwan Semicond Mfg Co",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 50.98,
-          "allocationPercent": 9.85
+          "performancePercent": 51.13,
+          "allocationPercent": 9.86
         },
         {
           "name": "Alphabet Inc Class C",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -16.51,
+          "performancePercent": -16.43,
           "allocationPercent": 7.8
         },
         {
           "name": "Rolls-Royce Holdings PLC",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 13.89,
-          "allocationPercent": 7.33
+          "performancePercent": 13.72,
+          "allocationPercent": 7.32
         },
         {
           "name": "Nordea",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -4.5,
-          "allocationPercent": 5.1
+          "performancePercent": -4.79,
+          "allocationPercent": 5.08
         },
         {
           "name": "Evolution",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -43.94,
-          "allocationPercent": 5.02
+          "performancePercent": -43.73,
+          "allocationPercent": 5.04
         },
         {
           "name": "TORM A",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": 10.97,
+          "performancePercent": 11.19,
           "allocationPercent": 4.76
         },
         {
           "name": "IonQ",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -46.88,
+          "performancePercent": -46.83,
           "allocationPercent": 3.39
         },
         {
           "name": "Gevo",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -56.84,
+          "performancePercent": -56.8,
           "allocationPercent": 3.32
         },
         {
           "name": "CRISPR Therapeutics",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -22.59,
+          "performancePercent": -22.51,
           "allocationPercent": 2.45
         },
         {
           "name": "Cameco",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -40.82,
+          "performancePercent": -40.76,
           "allocationPercent": 1.77
         },
         {
           "name": "Saxlund Group",
           "ticker": null,
           "type": "STOCK",
-          "performancePercent": -96.6,
-          "allocationPercent": 0.9
+          "performancePercent": -96.64,
+          "allocationPercent": 0.89
         }
       ],
       "allocationPercent": 100.0
@@ -214,7 +214,7 @@
       "priceCurrency": "USD",
       "sellPerformancePercent": 2.12,
       "matchedHoldingPeriodDays": 165,
-      "portfolioImpactPercent": 3.67
+      "portfolioImpactPercent": 3.66
     },
     {
       "name": "BEAR OLJA X1.5 AVA 1",
